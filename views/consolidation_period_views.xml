@@ -1,0 +1,60 @@
+<!-- views/consolidation_period_views.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Consolidation Period Form View -->
+    <record id="view_consolidation_period_form" model="ir.ui.view">
+        <field name="name">consolidation.period.form</field>
+        <field name="model">consolidation.period</field>
+        <field name="arch" type="xml">
+            <form string="Consolidation Period">
+                <header>
+                    <button name="action_prepare_consolidation" string="Prepare Consolidation" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_close_period" string="Close Period" type="object" attrs="{'invisible': [('state', '!=', 'in_progress')]}"/>
+                    <button name="action_reopen_period" string="Reopen" type="object" attrs="{'invisible': [('state', '!=', 'closed')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Q1 2025"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="group_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_start" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_end" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Company Periods" name="company_periods">
+                            <field name="company_period_ids">
+                                <tree string="Company Periods">
+                                    <field name="company_id"/>
+                                    <field name="ownership_percentage" widget="percentage"/>
+                                    <field name="control_percentage" widget="percentage"/>
+                                    <field name="exchange_rate"/>
+                                    <field name="include_in_consolidation"/>
+                                    <field name="state"/>
+                                    <button name="action_extract_data" string="Extract Data" type="object" icon="fa-download" 
+                                        attrs="{'invisible': [('state', '=', 'completed')]}"/>
+                                    <button name="action_mark_completed" string="Mark Completed" type="object" icon="fa-check" 
+                                        attrs="{'invisible': [('state', '=', 'completed')]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Journals" name="journals">
+                            <field name="journal_ids">
+                                <tree string="Journals">
+                                    <field name="name"/>
+                                    <field name="journal_type"/>
+                                    <field name="company_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

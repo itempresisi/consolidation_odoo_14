@@ -1,0 +1,40 @@
+<!-- report/consolidation_report.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="consolidation_report_action" model="ir.actions.report">
+        <field name="name">Consolidation Report</field>
+        <field name="model">consolidation.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">financial_consolidation.report_consolidation</field>
+        <field name="report_file">financial_consolidation.report_consolidation</field>
+        <field name="binding_model_id" ref="model_consolidation_report"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+    <template id="report_consolidation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="o.name"/>
+                        <div class="row mt32 mb32">
+                            <div class="col-3">
+                                <strong>Consolidation Period:</strong>
+                                <p t-field="o.period_id.name"/>
+                            </div>
+                            <div class="col-3">
+                                <strong>Report Type:</strong>
+                                <p t-field="o.report_type"/>
+                            </div>
+                            <div class="col-3">
+                                <strong>Date Range:</strong>
+                                <p><span t-field="o.period_id.date_start"/> - <span t-field="o.period_id.date_end"/></p>
+                            </div>
+                        </div>
+                        <!-- Report content would be implemented based on report_type -->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

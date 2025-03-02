@@ -1,0 +1,24 @@
+<!-- data/account_data.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default intercompany elimination accounts -->
+        <record id="consolidation_elimination_investment" model="consolidation.account">
+            <field name="name">Investment Elimination</field>
+            <field name="code">ELIM_INV</field>
+            <field name="account_type">equity</field>
+            <field name="is_intercompany">True</field>
+            <field name="elimination_rule">full</field>
+            <!-- group_id would need to be set when creating a new consolidation group -->
+        </record>
+        
+        <record id="consolidation_elimination_interco" model="consolidation.account">
+            <field name="name">Intercompany Transaction Elimination</field>
+            <field name="code">ELIM_IC</field>
+            <field name="account_type">expense</field>
+            <field name="is_intercompany">True</field>
+            <field name="elimination_rule">full</field>
+            <!-- group_id would need to be set when creating a new consolidation group -->
+        </record>
+    </data>
+</odoo>
